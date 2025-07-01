@@ -19,6 +19,7 @@ def _engineer(df: pd.DataFrame) -> pd.DataFrame:
     # Diagnosis buckets (ICD-9 codes)
     diag_cols = ["diag_1", "diag_2", "diag_3"]
     for col in diag_cols:
+        df[col] = df[col].astype(str)
         codes = pd.to_numeric(df[col].str.slice(0, 3), errors="coerce").fillna(0).astype(int)
 
         df[f"{col}_group"] = "Other"

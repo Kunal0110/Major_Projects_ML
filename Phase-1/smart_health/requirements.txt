@@ -10,3 +10,6 @@ uvicorn[standard]>=0.29
 shap>=0.45
 streamlit>=1.35
 pytest>=8.2
+matplotlib>=3.8
+requests>=2.32
+altair>=5.0

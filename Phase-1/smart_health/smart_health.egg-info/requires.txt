@@ -1,0 +1,5 @@
+
+[dev]
+pytest
+streamlit
+uvicorn[standard]
