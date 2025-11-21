@@ -1,0 +1,11 @@
+{
+    "dtypes": {
+      "customer_id": "str",
+      "month": "int",
+      "data_used_gb": "float",
+      "voice_minutes": "float",
+      "support_calls": "int",
+      "app_logins": "int",
+      "downtime_minutes": "int"
+    }
+  }

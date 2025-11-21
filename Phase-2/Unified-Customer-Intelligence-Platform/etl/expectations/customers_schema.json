@@ -1,0 +1,16 @@
+{
+    "dtypes": {
+      "customer_id": "str",
+      "gender": "str",
+      "senior_citizen": "int",
+      "partner": "int",
+      "dependents": "int",
+      "tenure_months": "int",
+      "contract_type": "str",
+      "internet_service": "str",
+      "monthly_charges": "float",
+      "total_charges": "float",
+      "region": "str"
+    }
+  }
+  

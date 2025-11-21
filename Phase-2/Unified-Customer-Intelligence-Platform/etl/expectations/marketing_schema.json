@@ -1,0 +1,9 @@
+{
+    "dtypes": {
+      "customer_id": "str",
+      "campaign_type": "str",
+      "touch_count": "int",
+      "clicks": "int",
+      "conversions": "int"
+    }
+  }

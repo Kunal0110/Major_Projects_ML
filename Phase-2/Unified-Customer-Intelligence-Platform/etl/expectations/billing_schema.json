@@ -1,0 +1,10 @@
+{
+    "dtypes": {
+      "customer_id": "str",
+      "month": "int",
+      "billed_amount": "float",
+      "paid_amount": "float",
+      "payment_delay_days": "int"
+    }
+  }
+  

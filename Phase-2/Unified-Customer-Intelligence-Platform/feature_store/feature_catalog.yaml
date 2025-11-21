@@ -1,0 +1,41 @@
+demographic:
+  description: "Base demographic + account status features"
+  owner: "kunal"
+  tags: ["demographic", "baseline"]
+  columns:
+    - customer_id
+    - contract_encoded
+    - is_senior
+    - has_partner
+    - has_dependents
+    - tenure_months
+    - avg_monthly_charge
+
+billing:
+  description: "Billing behavior aggregated over 12 months"
+  owner: "kunal"
+  tags: ["billing", "behavior"]
+  columns:
+    - customer_id
+    # etc… populated automatically
+
+usage:
+  description: "Usage features from voice/data/support logs"
+  owner: "kunal"
+  tags: ["usage"]
+  columns:
+    - customer_id
+
+marketing:
+  description: "Engagement with marketing campaigns"
+  owner: "kunal"
+  tags: ["marketing"]
+  columns:
+    - customer_id
+
+revenue:
+  description: "Monthly revenue sequence features"
+  owner: "kunal"
+  tags: ["revenue", "clv"]
+  columns:
+    - customer_id
