@@ -576,7 +576,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👥 Authors
 
-- **Your Name** - *Initial work* - [GitHub](https://github.com/yourusername)
+- **Lalith Kunal Bachu** - *Initial work* - [GitHub](https://github.com/Kunal0110)
 
 ---
 
