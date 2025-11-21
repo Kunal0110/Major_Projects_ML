@@ -590,10 +590,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## 📞 Support
-
-For support, email support@example.com or open an issue on GitHub.
-
----
-
 **⭐ Star this repo if you find it helpful!**
