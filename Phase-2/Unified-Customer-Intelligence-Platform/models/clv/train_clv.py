@@ -78,6 +78,7 @@ def train_clv():
 
     save_model(best_model, Out_Dir / "clv_model.pkl")
     save_model(selector, Out_Dir / "clv_feature_selector.pkl")
+    save_model(pre, Out_Dir / "clv_preprocessor.pkl")
 
 if __name__ == "__main__":
     train_clv()

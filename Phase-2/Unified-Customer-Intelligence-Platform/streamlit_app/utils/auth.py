@@ -1,55 +1,70 @@
 import streamlit as st
-import json
+import sqlite3
 from pathlib import Path
-import hashlib
+import bcrypt
 
-USER_DB_PATH = Path("streamlit_app/users.json")
+USER_DB_PATH = Path("streamlit_app/users.db")
+
+def init_db():
+    """Initialize SQLite database"""
+    conn = sqlite3.connect(USER_DB_PATH)
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS users (
+            id INTEGER PRIMARY KEY,
+            name TEXT NOT NULL,
+            email TEXT UNIQUE NOT NULL,
+            phone TEXT,
+            password_hash TEXT NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    """)
+    conn.commit()
+    conn.close()
 
 def hash_password(password: str) -> str:
-    """Hash password using SHA256"""
-    return hashlib.sha256(password.encode()).hexdigest()
+    """Hash password using bcrypt"""
+    return bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
 
-def load_users():
-    """Load users from JSON file"""
-    if USER_DB_PATH.exists():
-        with open(USER_DB_PATH, 'r') as f:
-            return json.load(f)
-    return {}
-
-def save_users(users):
-    """Save users to JSON file"""
-    USER_DB_PATH.parent.mkdir(parents=True, exist_ok=True)
-    with open(USER_DB_PATH, 'w') as f:
-        json.dump(users, f, indent=2)
+def verify_password(password: str, hash: str) -> bool:
+    """Verify password against hash"""
+    return bcrypt.checkpw(password.encode(), hash.encode())
 
 def signup(name: str, email: str, phone: str, password: str):
     """Register new user"""
-    users = load_users()
-    
-    if email in users:
+    init_db()
+    conn = sqlite3.connect(USER_DB_PATH)
+    try:
+        conn.execute(
+            "INSERT INTO users (name, email, phone, password_hash) VALUES (?, ?, ?, ?)",
+            (name, email, phone, hash_password(password))
+        )
+        conn.commit()
+        return True, "Signup successful"
+    except sqlite3.IntegrityError:
         return False, "Email already registered"
-    
-    users[email] = {
-        "name": name,
-        "email": email,
-        "phone": phone,
-        "password": hash_password(password)
-    }
-    
-    save_users(users)
-    return True, "Signup successful"
+    finally:
+        conn.close()
 
 def login(email: str, password: str):
     """Authenticate user"""
-    users = load_users()
-    
-    if email not in users:
+    init_db()
+    conn = sqlite3.connect(USER_DB_PATH)
+    try:
+        cursor = conn.execute(
+            "SELECT name, email, phone, password_hash FROM users WHERE email = ?",
+            (email,)
+        )
+        user = cursor.fetchone()
+        
+        if user and verify_password(password, user[3]):
+            return True, {
+                "name": user[0],
+                "email": user[1],
+                "phone": user[2]
+            }
         return False, None
-    
-    if users[email]["password"] == hash_password(password):
-        return True, users[email]
-    
-    return False, None
+    finally:
+        conn.close()
 
 def is_authenticated():
     """Check if user is logged in"""

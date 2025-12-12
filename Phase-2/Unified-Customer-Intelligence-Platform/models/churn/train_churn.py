@@ -110,6 +110,8 @@ def train_churn():
     print("XGB Best:", metrics_xgb)
 
     save_model(best_xgb, Out_Dir/"xgb_best.pkl")
+    save_model(pre, Out_Dir/"preprocessor.pkl")
+    save_model(selector, Out_Dir/"feature_selector.pkl")
 
     # Stacking Ensemble
 
